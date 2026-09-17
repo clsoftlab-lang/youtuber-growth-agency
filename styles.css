@@ -215,6 +215,10 @@ legend { font-weight: 800; padding: 0 8px; font-size: 0.95rem; }
 .empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--border); border-radius: 12px; }
 
 /* AI assistant */
+.auto-digest { margin: 0 0 20px; border-left: 3px solid var(--accent); gap: 8px; }
+.auto-digest .ad-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.auto-digest .ad-head h3 { margin: 0; }
+.auto-digest .ai-output { max-height: 260px; }
 .ai-card { gap: 12px; }
 .ai-card label { font-size: 0.9rem; }
 .ai-card .btn { align-self: flex-start; }

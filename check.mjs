@@ -69,7 +69,7 @@ const requiredIds = [
   "quoteAddons", "quoteSummary", "expertsGrid", "expertFilter",
   "requestsList", "reviewsGrid", "primaryNav", "navToggle",
   "ai", "aiChatBtn", "aiChatOutput", "aiContentBtn", "aiContentOutput",
-  "aiQuoteBtn", "aiQuoteOutput"
+  "aiQuoteBtn", "aiQuoteOutput", "autoDigest", "autoDigestOutput"
 ];
 for (const id of requiredIds) {
   if (html.includes(`id="${id}"`)) ok(`#${id} 존재`);
@@ -166,6 +166,12 @@ for (const sub of ["ai", "server"]) {
       ok(`${js.replace(root, ".")} 문법 OK`);
     } catch (e) { fail(`${js} 문법 오류: ${e.stderr?.toString() || e.message}`); }
   }
+}
+
+// 6a-2) 무인 배포 변형(Cloudflare Workers) 파일 존재 확인
+for (const rel of ["server/worker.js", "server/wrangler.toml"]) {
+  try { readFileSync(join(root, rel), "utf8"); ok(`${rel} 존재`); }
+  catch { fail(`${rel} 누락(무인 배포 변형 필요)`); }
 }
 
 // 6b) 데모 배포는 AI_ENDPOINT가 비어 있어야 함(목업 모드)

@@ -363,6 +363,34 @@ function initAI() {
   });
 }
 
+/* ---------- 무인 기능: 오늘의 팁 + 추천 패키지 (온로드 자동 생성) ---------- */
+// 날짜로 회전하는 샘플 채널 프로필. 앱의 진단/견적 엔진(askAI 목업)으로 오늘의 팁을 자동 생성합니다.
+// AI_ENDPOINT 미설정(데모)에서는 목업으로, 설정 시 실 Claude로 동작하며, 실패해도 목업으로 자동 폴백됩니다.
+const DIGEST_SAMPLES = [
+  { subscribers: 820, avgViews: 640, uploadIntervalDays: 6, months: 5, topic: "브이로그" },
+  { subscribers: 4200, avgViews: 1500, uploadIntervalDays: 12, months: 9, topic: "게임" },
+  { subscribers: 15800, avgViews: 6200, uploadIntervalDays: 4, months: 14, topic: "뷰티" },
+  { subscribers: 2600, avgViews: 900, uploadIntervalDays: 20, months: 7, topic: "푸드" },
+  { subscribers: 9800, avgViews: 3100, uploadIntervalDays: 9, months: 11, topic: "IT" },
+  { subscribers: 63000, avgViews: 21000, uploadIntervalDays: 5, months: 22, topic: "재테크" },
+  { subscribers: 1400, avgViews: 380, uploadIntervalDays: 28, months: 4, topic: "여행" }
+];
+async function initAutoDigest() {
+  const out = $("#autoDigestOutput");
+  if (!out) return;
+  const day = Math.floor(Date.now() / 86400000); // 일 단위 회전
+  const sample = DIGEST_SAMPLES[day % DIGEST_SAMPLES.length];
+  const payload = { ...sample, question: "오늘 이 채널이 가장 먼저 개선할 점 한 가지와 추천 패키지를 알려주세요." };
+  out.textContent = "";
+  try {
+    await askAI("chat", payload, { onToken: (t) => { out.textContent += t; } });
+  } catch (err) {
+    // askAI 자체가 목업으로 폴백하므로 여기까지 오는 경우는 드뭅니다.
+    console.warn("오늘의 팁 생성 실패", err);
+    if (!out.textContent) out.textContent = "오늘의 팁을 불러오지 못했습니다. AI 어시스턴트에서 직접 상담을 받아보세요.";
+  }
+}
+
 /* ---------- 내비게이션 ---------- */
 function initNav() {
   const toggle = $("#navToggle");
@@ -405,6 +433,7 @@ async function init() {
     renderReviews();
     renderQuoteControls();
     renderRequests();
+    initAutoDigest(); // 무인: 온로드 오늘의 팁 자동 생성
   } catch (err) {
     console.error(err);
     toast("데이터를 불러오지 못했습니다. 로컬 서버로 실행했는지 확인하세요.");

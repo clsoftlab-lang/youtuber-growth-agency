@@ -88,11 +88,35 @@ node --env-file=.env index.mjs    # http://localhost:8787/api/ai
 export const AI_ENDPOINT = "http://localhost:8787/api/ai";
 ```
 
-- 모델: **`claude-opus-5`** (adaptive thinking), 응답은 텍스트 스트리밍.
+- 모델: 비용우선 기본 **`claude-haiku-4-5`** (환경변수 `AI_MODEL` 로 `claude-sonnet-5`/`claude-opus-5` 상향 가능), 응답은 텍스트 스트리밍.
 - 서버는 `data/*.json` 카탈로그를 로드해 프롬프트에 grounding.
 - **BOLD: API 키는 서버 측에만 둡니다. 브라우저·프런트엔드 코드·리포지토리에는 절대 키를 넣지 않습니다.** `.env` 는 `.gitignore` 로 제외됩니다.
 
 자세한 내용: [`server/README.md`](./server/README.md). 검증: `node check.mjs` 가 `ai/`·`server/` 문법, `AI_ENDPOINT` 공백, 실제 키 형식 노출을 함께 점검합니다.
+
+## ⚙️ 고도화 — 무인·저비용 실 AI 연동
+
+이 앱은 **무인(autonomous)·저비용(cost-efficient)·실 AI(real Claude)** 를 목표로 고도화되었습니다.
+
+**비용 모델.** 기본 모델은 비용우선 **Claude Haiku 4.5**(대략 입력 $1 / 출력 $5 per MTok)이며,
+안정적인 태스크별 system 프롬프트를 **프롬프트 캐시**(`cache_control:{type:'ephemeral'}`)로 보내 반복 호출 비용을 낮춥니다.
+태스크별 `max_tokens` 상한(기본 700)으로 출력 비용을 제한하고, **월간 토큰 예산**(`AI_MONTHLY_TOKEN_CAP`, 기본 2,000,000)과
+**IP별 분당 요청 제한**(기본 20)으로 가드레일을 둡니다. 예산 초과 시 서버는 429 `{fallback:true}` 를 반환합니다.
+
+**대략적 비용 견적.** 요청당 평균 입력 ~1.5K / 출력 ~0.5K 토큰을 가정하면, Haiku 4.5 기준 **1,000요청 ≈ $3.75**
+(입력 1.5M×$1 + 출력 0.5M×$5 = $1.5 + $2.5). 프롬프트 캐시가 반복되는 system·카탈로그 토큰을 크게 할인해 실제 비용은 더 낮아집니다.
+`AI_MODEL` 을 Sonnet/Opus 로 올리면 품질과 비용이 함께 올라갑니다.
+
+**무료 무인 배포(원클릭 급).** 관리할 서버가 없는 **Cloudflare Workers** 변형(`server/worker.js` + `server/wrangler.toml`)을 제공합니다.
+`wrangler secret put ANTHROPIC_API_KEY` 로 키를 시크릿에 넣고 `wrangler deploy` 하면 끝입니다(무료 티어). 상세: [`server/README.md`](./server/README.md).
+
+**무인 자동 폴백(never-breaks).** 엔드포인트 호출이 실패하거나 429 `{fallback:true}` / 네트워크 오류가 발생하면
+`ai/ai.js` 가 자동으로 기존 **목업**으로 폴백합니다. 그래서 앱은 서버가 없거나 예산이 소진돼도 절대 멈추지 않습니다.
+
+**무인 자동 기능.** 페이지 로드 시 앱의 진단/견적 엔진과 `askAI` 로 **"채널 성장 오늘의 팁 + 추천 패키지"** 를 자동 생성합니다
+(AI 어시스턴트 섹션 상단). 오프라인 목업에서도 동작합니다.
+
+> **API keys are server-side only — never in the browser or repo.**
 
 ## DEMO-MODE boundaries
 **This is a demonstration build. Specifically:**

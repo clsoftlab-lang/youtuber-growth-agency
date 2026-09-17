@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 CLSOFTLAB (씨엘소프트랩), Dr. Lee Il-guk (이일국)
+#
+# Cloudflare Workers 배포 설정 (무료 티어). server/worker.js 를 진입점으로 사용합니다.
+# 키는 시크릿으로만 주입:  wrangler secret put ANTHROPIC_API_KEY
+# 배포:  cd server && wrangler deploy
+
+name = "tubegrowth-ai-proxy"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# 선택: 모델/출력 상한을 환경변수로 조정 (기본은 worker.js 내 비용우선 값).
+# ANTHROPIC_API_KEY 는 vars 가 아니라 반드시 secret 으로 설정하세요.
+[vars]
+AI_MODEL = "claude-haiku-4-5"
+AI_MAX_TOKENS = "700"
+AI_EFFORT = "low"

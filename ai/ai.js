@@ -41,7 +41,14 @@ export async function askAI(task, payload, { onToken } = {}) {
     const text = await mockReply(task, payload);
     return streamLocal(text, onToken);
   }
-  return streamRemote(task, payload, onToken);
+  // 무인(never-breaks): 실 연동 실패 / 429 {fallback:true} / 네트워크 오류 시 목업으로 자동 폴백.
+  try {
+    return await streamRemote(task, payload, onToken);
+  } catch (err) {
+    console.warn("실 AI 연동 실패 — 목업으로 자동 폴백합니다.", (err && err.message) || err);
+    const text = await mockReply(task, payload);
+    return streamLocal(text, onToken);
+  }
 }
 
 /* ---------- 원격(실 Claude, 백엔드 프록시) 스트리밍 ---------- */
