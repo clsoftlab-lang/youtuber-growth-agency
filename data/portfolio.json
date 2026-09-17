@@ -1,0 +1,148 @@
+{
+  "cases": [
+    {
+      "id": "case-01",
+      "channel": "새벽공방 우드워크",
+      "category": "공예/DIY",
+      "beforeSubs": 1200,
+      "afterSubs": 84000,
+      "months": 8,
+      "package": "growth",
+      "summary": "손끝 클로즈업 편집과 ASMR 사운드 설계로 몰입도를 끌어올렸습니다.",
+      "highlights": ["썸네일 CTR 3.1%→9.4%", "평균 시청 지속 2분→5분12초", "쇼츠 3편 100만 조회"],
+      "accent": "#e07a5f"
+    },
+    {
+      "id": "case-02",
+      "channel": "직장인 김대리의 점심",
+      "category": "푸드/브이로그",
+      "beforeSubs": 4300,
+      "afterSubs": 210000,
+      "months": 11,
+      "package": "scale",
+      "summary": "구내식당 리뷰라는 니치를 잡고 업로드 주기를 주 3회로 고정했습니다.",
+      "highlights": ["주 3회 업로드 정착", "브랜드 협찬 6건 성사", "재생목록 완주율 41%"],
+      "accent": "#3d5a80"
+    },
+    {
+      "id": "case-03",
+      "channel": "고양이 집사 다이어리",
+      "category": "반려동물",
+      "beforeSubs": 800,
+      "afterSubs": 156000,
+      "months": 9,
+      "package": "growth",
+      "summary": "감정 자막과 스토리텔링 훅으로 첫 15초 이탈률을 크게 낮췄습니다.",
+      "highlights": ["첫 15초 유지율 88%", "커뮤니티 탭 활성화", "굿즈 스토어 오픈"],
+      "accent": "#f2a541"
+    },
+    {
+      "id": "case-04",
+      "channel": "홈트 위드 지나",
+      "category": "운동/건강",
+      "beforeSubs": 6100,
+      "afterSubs": 320000,
+      "months": 12,
+      "package": "scale",
+      "summary": "루틴 시리즈화와 챕터 마커로 검색 유입을 극대화했습니다.",
+      "highlights": ["검색 유입 62%", "저장 수 상위 1%", "온라인 클래스 런칭"],
+      "accent": "#81b29a"
+    },
+    {
+      "id": "case-05",
+      "channel": "코딩하는 라쿤",
+      "category": "IT/교육",
+      "beforeSubs": 2500,
+      "afterSubs": 98000,
+      "months": 7,
+      "package": "growth",
+      "summary": "코드 화면 확대·타이핑 사운드·요약 카드로 튜토리얼 완주율을 높였습니다.",
+      "highlights": ["완주율 47%", "댓글 질문 응답 시스템화", "강의 사전예약 마감"],
+      "accent": "#5c6ac4"
+    },
+    {
+      "id": "case-06",
+      "channel": "여행하는 두 사람",
+      "category": "여행",
+      "beforeSubs": 9200,
+      "afterSubs": 410000,
+      "months": 14,
+      "package": "scale",
+      "summary": "시네마틱 컬러 그레이딩과 감성 내레이션으로 채널 톤을 확립했습니다.",
+      "highlights": ["평균 조회 45만", "관광청 협업 2건", "쇼츠 팔로업 전환 12%"],
+      "accent": "#3d5a80"
+    },
+    {
+      "id": "case-07",
+      "channel": "수험생 공부방 라이브",
+      "category": "교육/스터디",
+      "beforeSubs": 1500,
+      "afterSubs": 72000,
+      "months": 6,
+      "package": "start",
+      "summary": "스터디윗미 포맷과 타이머 오버레이로 반복 시청층을 확보했습니다.",
+      "highlights": ["반복 시청 34%", "멤버십 320명", "라이브 동접 2천"],
+      "accent": "#e07a5f"
+    },
+    {
+      "id": "case-08",
+      "channel": "메이크업 언박싱 소라",
+      "category": "뷰티",
+      "beforeSubs": 5400,
+      "afterSubs": 265000,
+      "months": 10,
+      "package": "growth",
+      "summary": "비포/애프터 분할 화면과 컬러 매칭 썸네일로 클릭률을 개선했습니다.",
+      "highlights": ["썸네일 CTR 11.2%", "제품 태그 매출 연동", "협찬 단가 3배"],
+      "accent": "#f2a541"
+    },
+    {
+      "id": "case-09",
+      "channel": "부동산 쉽게보기",
+      "category": "경제/부동산",
+      "beforeSubs": 3300,
+      "afterSubs": 145000,
+      "months": 9,
+      "package": "growth",
+      "summary": "그래픽 인포그래픽과 핵심 요약 챕터로 신뢰도 있는 정보 채널을 구축했습니다.",
+      "highlights": ["평균 시청 6분48초", "상담 문의 폼 전환 8%", "뉴스레터 1만 구독"],
+      "accent": "#3d5a80"
+    },
+    {
+      "id": "case-10",
+      "channel": "게임하는 감자",
+      "category": "게임",
+      "beforeSubs": 7800,
+      "afterSubs": 380000,
+      "months": 11,
+      "package": "scale",
+      "summary": "하이라이트 자동 편집과 밈 자막으로 쇼츠 바이럴을 반복 생산했습니다.",
+      "highlights": ["쇼츠 누적 3천만", "롱폼 전환율 9%", "디스코드 2만 명"],
+      "accent": "#5c6ac4"
+    },
+    {
+      "id": "case-11",
+      "channel": "아기와 함께 성장일기",
+      "category": "육아",
+      "beforeSubs": 900,
+      "afterSubs": 62000,
+      "months": 8,
+      "package": "start",
+      "summary": "따뜻한 톤앤매너와 월별 성장 시리즈로 충성 시청층을 만들었습니다.",
+      "highlights": ["구독 전환율 6.8%", "커뮤니티 반응 활발", "육아용품 협찬 시작"],
+      "accent": "#81b29a"
+    },
+    {
+      "id": "case-12",
+      "channel": "미니멀 살림 하우스",
+      "category": "라이프스타일",
+      "beforeSubs": 2100,
+      "afterSubs": 118000,
+      "months": 9,
+      "package": "growth",
+      "summary": "정갈한 색보정과 루틴형 구성으로 저장·공유 지표를 끌어올렸습니다.",
+      "highlights": ["저장 수 상위 3%", "공유율 5.2%", "전자책 출간"],
+      "accent": "#e07a5f"
+    }
+  ]
+}

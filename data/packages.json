@@ -1,0 +1,54 @@
+{
+  "packages": [
+    {
+      "id": "start",
+      "name": "스타트 패키지",
+      "tagline": "이제 막 시작하는 채널을 위한 기본기",
+      "priceMonthly": 800000,
+      "durationWeeks": 4,
+      "videosPerMonth": 4,
+      "includes": ["롱폼 편집 4편", "썸네일 4종", "기본 SEO 세팅", "월 1회 성장 리포트"],
+      "editing": true,
+      "thumbnail": true,
+      "planning": false,
+      "marketing": false,
+      "accent": "#81b29a"
+    },
+    {
+      "id": "growth",
+      "name": "그로스 패키지",
+      "tagline": "빠른 성장을 노리는 채널의 핵심 조합",
+      "priceMonthly": 1800000,
+      "durationWeeks": 8,
+      "videosPerMonth": 8,
+      "includes": ["롱폼 편집 6편", "쇼츠 편집 6편", "썸네일 12종", "콘텐츠 기획", "월 2회 성장 리포트"],
+      "editing": true,
+      "thumbnail": true,
+      "planning": true,
+      "marketing": false,
+      "accent": "#e07a5f",
+      "popular": true
+    },
+    {
+      "id": "scale",
+      "name": "스케일 패키지",
+      "tagline": "수익화·브랜딩까지 함께하는 풀 매니지먼트",
+      "priceMonthly": 3500000,
+      "durationWeeks": 12,
+      "videosPerMonth": 12,
+      "includes": ["롱폼 편집 8편", "쇼츠 편집 12편", "썸네일 20종", "콘텐츠 기획", "마케팅·협찬 세일즈", "주간 성장 리포트"],
+      "editing": true,
+      "thumbnail": true,
+      "planning": true,
+      "marketing": true,
+      "accent": "#3d5a80"
+    }
+  ],
+  "addons": [
+    { "id": "extra-long", "name": "롱폼 추가 편집", "unit": "편당", "price": 220000 },
+    { "id": "extra-short", "name": "쇼츠 추가 편집", "unit": "편당", "price": 70000 },
+    { "id": "extra-thumb", "name": "썸네일 추가", "unit": "건당", "price": 55000 },
+    { "id": "consult", "name": "1:1 채널 컨설팅", "unit": "세션당", "price": 300000 },
+    { "id": "rush", "name": "긴급 작업(48시간)", "unit": "적용 시 총액", "price": 0, "rate": 0.3 }
+  ]
+}

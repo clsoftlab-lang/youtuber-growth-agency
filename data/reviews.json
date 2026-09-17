@@ -1,0 +1,12 @@
+{
+  "reviews": [
+    { "id": "rv-01", "author": "우드워크 운영자", "channel": "새벽공방 우드워크", "rating": 5, "package": "growth", "text": "8개월 만에 구독자 70배. 편집 톤이 채널 정체성을 만들어줬어요.", "date": "2026-06-14" },
+    { "id": "rv-02", "author": "김대리", "channel": "직장인 김대리의 점심", "rating": 5, "package": "scale", "text": "협찬 세일즈까지 붙으니 수익 구조가 완전히 달라졌습니다.", "date": "2026-07-02" },
+    { "id": "rv-03", "author": "다이어리집사", "channel": "고양이 집사 다이어리", "rating": 4, "package": "growth", "text": "초반 훅 설계 덕분에 이탈률이 확 줄었어요. 소통도 빠릅니다.", "date": "2026-05-21" },
+    { "id": "rv-04", "author": "지나", "channel": "홈트 위드 지나", "rating": 5, "package": "scale", "text": "검색 유입이 늘면서 온라인 클래스까지 런칭했어요. 감사합니다.", "date": "2026-08-09" },
+    { "id": "rv-05", "author": "라쿤개발자", "channel": "코딩하는 라쿤", "rating": 5, "package": "growth", "text": "튜토리얼 완주율이 눈에 띄게 올랐습니다. 요약 카드 최고.", "date": "2026-04-30" },
+    { "id": "rv-06", "author": "두사람", "channel": "여행하는 두 사람", "rating": 5, "package": "scale", "text": "시네마틱 편집 퀄리티가 다른 곳과 비교가 안 됩니다.", "date": "2026-07-19" },
+    { "id": "rv-07", "author": "공부방지기", "channel": "수험생 공부방 라이브", "rating": 4, "package": "start", "text": "작은 예산으로 시작했는데 멤버십까지 열게 됐어요.", "date": "2026-03-12" },
+    { "id": "rv-08", "author": "소라", "channel": "메이크업 언박싱 소라", "rating": 5, "package": "growth", "text": "썸네일 CTR이 두 배가 됐어요. 협찬 단가도 올랐습니다.", "date": "2026-06-27" }
+  ]
+}
