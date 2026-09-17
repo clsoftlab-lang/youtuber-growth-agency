@@ -1,0 +1,18 @@
+{
+  "name": "youtuber-growth-agency-ai-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "튜브그로스 AI 백엔드 프록시 — 서버 측 ANTHROPIC_API_KEY로 Claude(claude-opus-5)를 호출해 /api/ai 로 스트리밍합니다.",
+  "license": "Apache-2.0",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.72.0"
+  }
+}

@@ -67,7 +67,9 @@ const requiredIds = [
   "packagesGrid", "addonsList", "portfolioGrid", "portfolioFilter",
   "diagnosticForm", "diagnosticResult", "quoteForm", "quotePackages",
   "quoteAddons", "quoteSummary", "expertsGrid", "expertFilter",
-  "requestsList", "reviewsGrid", "primaryNav", "navToggle"
+  "requestsList", "reviewsGrid", "primaryNav", "navToggle",
+  "ai", "aiChatBtn", "aiChatOutput", "aiContentBtn", "aiContentOutput",
+  "aiQuoteBtn", "aiQuoteOutput"
 ];
 for (const id of requiredIds) {
   if (html.includes(`id="${id}"`)) ok(`#${id} 존재`);
@@ -148,6 +150,47 @@ const quote = await import("./quote.js");
   assert.equal(quote.formatWon(1800000), "1,800,000원");
   ok("formatWon 포맷 확인");
 }
+
+/* 6) AI 레이어 검사 */
+console.log("[6] AI 레이어");
+
+// 6a) ai/ + server/ 하위 JS 문법 검사 (node --check)
+for (const sub of ["ai", "server"]) {
+  const dir = join(root, sub);
+  let files = [];
+  try { files = collectJS(dir); } catch { fail(`${sub}/ 디렉터리를 찾을 수 없음`); }
+  assert.ok(files.length >= 1, `${sub}/ 에 JS 파일이 있어야 함`);
+  for (const js of files) {
+    try {
+      execFileSync(process.execPath, ["--check", js], { stdio: "pipe" });
+      ok(`${js.replace(root, ".")} 문법 OK`);
+    } catch (e) { fail(`${js} 문법 오류: ${e.stderr?.toString() || e.message}`); }
+  }
+}
+
+// 6b) 데모 배포는 AI_ENDPOINT가 비어 있어야 함(목업 모드)
+const aiConfig = await import("./ai/config.js");
+assert.ok("AI_ENDPOINT" in aiConfig, "ai/config.js 는 AI_ENDPOINT 를 export 해야 함");
+assert.equal(aiConfig.AI_ENDPOINT, "", "데모 배포는 AI_ENDPOINT가 비어 있어야 함(목업 모드)");
+ok("AI_ENDPOINT 비어 있음(목업 모드)");
+
+// 6c) 실제 Anthropic 키 형식이 리포지토리에 노출되지 않았는지 스캔
+const keyRe = new RegExp("sk-" + "ant-[A-Za-z0-9_-]{20,}");
+function scanFiles(dir) {
+  const out = [];
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    if (e.name === "node_modules" || e.name === ".git") continue;
+    const p = join(dir, e.name);
+    if (e.isDirectory()) out.push(...scanFiles(p));
+    else if (/\.(js|mjs|json|md|html|css|txt|yml|yaml|example|env)$/.test(e.name)) out.push(p);
+  }
+  return out;
+}
+let leaks = 0;
+for (const f of scanFiles(root)) {
+  if (keyRe.test(readFileSync(f, "utf8"))) { fail(`실제 API 키 형식 노출: ${f.replace(root, ".")}`); leaks++; }
+}
+if (leaks === 0) ok("실제 Anthropic 키 형식 미검출");
 
 console.log(`\n총 ${passed}개 검사 통과.`);
 if (process.exitCode) { console.error("일부 검사 실패."); }

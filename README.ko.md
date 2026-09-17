@@ -62,6 +62,38 @@ node check.mjs      # JSON 파싱 + 모든 JS node --check + HTML 컨테이너 +
 장기 할인(3개월 5%, 6개월 10%, 12개월+ 15%)을 뺀 뒤, 선택 시 긴급 할증(+30%)을
 할인 후 금액에 적용해 총액을 산출합니다.
 
+## 🤖 AI 기능 (API 연동)
+
+세 가지 AI 기능이 추가되었습니다 (모두 앱의 진단/견적 엔진과 패키지·전문가 데이터를 재사용):
+
+1. **AI 채널 성장 상담 챗봇** — 채널 진단 결과 기반 맞춤 조언.
+2. **콘텐츠 기획/제목·썸네일 아이디어 생성**.
+3. **견적/패키지 추천 설명**.
+
+**데모 = 목업(mock).** 기본값에서 `ai/config.js` 의 `AI_ENDPOINT` 가 비어 있으며,
+브라우저에서 결정적 한국어 MockProvider가 즉시 응답합니다. 키·서버·네트워크가 필요 없습니다.
+
+**실제 AI 활성화.** 백엔드 프록시로 전환합니다.
+
+```bash
+cd server
+npm install                       # @anthropic-ai/sdk
+cp .env.example .env              # .env 에 ANTHROPIC_API_KEY 입력 (커밋 금지)
+node --env-file=.env index.mjs    # http://localhost:8787/api/ai
+```
+
+그런 다음 `ai/config.js` 를 수정합니다.
+
+```js
+export const AI_ENDPOINT = "http://localhost:8787/api/ai";
+```
+
+- 모델: **`claude-opus-5`** (adaptive thinking), 응답은 텍스트 스트리밍.
+- 서버는 `data/*.json` 카탈로그를 로드해 프롬프트에 grounding.
+- **굵게: API 키는 서버 측에만 둡니다. 브라우저·프런트엔드 코드·리포지토리에는 절대 키를 넣지 않습니다.** `.env` 는 `.gitignore` 로 제외됩니다.
+
+자세한 내용: [`server/README.md`](./server/README.md). 검증: `node check.mjs` 가 `ai/`·`server/` 문법, `AI_ENDPOINT` 공백, 실제 키 형식 노출을 함께 점검합니다.
+
 ## 데모 모드 경계
 **본 프로젝트는 시연용 빌드입니다. 구체적으로:**
 - **모든 데이터는 가상입니다**(채널·전문가·후기·가격) — 실존 인물이나 브랜드가 아닙니다.
@@ -71,7 +103,7 @@ node check.mjs      # JSON 파싱 + 모든 JS node --check + HTML 컨테이너 +
 - **계정·로그인·개인정보(PII) 수집이 없습니다.**
 - 실제 상용 빌드라면 백엔드, 실제 YouTube Data API 분석, 결제, 인증이 추가됩니다.
 
-## 아이디어 출처 / Idea origin
+## 🎓 아이디어 출처 / Idea origin
 이 아이디어의 씨앗은 용인대학교에서 이일국 박사가 강의한 창업 수업에서 나왔습니다. 수강생들의
 창업 아이디어는 대단히 창의적이었고, 그중 돋보였던 아이디어 하나를 실제로 작동하는 서비스로
 구현한 것입니다. 그 학생들에게 존경과 감사를 전합니다. 학생 개인정보는 일절 포함하지 않았습니다.

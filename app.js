@@ -6,6 +6,7 @@
 
 import { diagnose } from "./diagnostic.js";
 import { calcQuote, formatWon } from "./quote.js";
+import { askAI } from "./ai/ai.js";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -319,6 +320,49 @@ function renderRequests() {
   $$("[data-del]", box).forEach((b) => b.addEventListener("click", () => removeRequest(b.dataset.del)));
 }
 
+/* ---------- AI 어시스턴트 ---------- */
+async function runAI(task, payload, outEl, btn) {
+  if (!outEl || !btn) return;
+  outEl.hidden = false;
+  outEl.textContent = "";
+  btn.disabled = true;
+  const prev = btn.textContent;
+  btn.textContent = "생성 중…";
+  try {
+    await askAI(task, payload, { onToken: (t) => { outEl.textContent += t; } });
+  } catch (err) {
+    console.error(err);
+    outEl.textContent = "AI 응답을 가져오지 못했습니다. 데모 모드는 로컬 HTTP 서버로 실행했는지, 실연동은 server/ 프록시가 켜져 있는지 확인하세요.";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = prev;
+  }
+}
+function initAI() {
+  const chatBtn = $("#aiChatBtn");
+  if (chatBtn) chatBtn.addEventListener("click", () => {
+    const f = $("#diagnosticForm");
+    const payload = {
+      subscribers: Number(f.subscribers.value),
+      avgViews: Number(f.avgViews.value),
+      uploadIntervalDays: Number(f.uploadIntervalDays.value),
+      months: Number(f.months.value),
+      topic: f.topic.value,
+      question: $("#aiChatInput").value
+    };
+    runAI("chat", payload, $("#aiChatOutput"), chatBtn);
+  });
+  const contentBtn = $("#aiContentBtn");
+  if (contentBtn) contentBtn.addEventListener("click", () => {
+    runAI("content", { topic: $("#aiContentTopic").value, keyword: $("#aiContentKeyword").value }, $("#aiContentOutput"), contentBtn);
+  });
+  const quoteBtn = $("#aiQuoteBtn");
+  if (quoteBtn) quoteBtn.addEventListener("click", () => {
+    const inp = readQuoteInput();
+    runAI("quote", { pkgId: inp.pkg?.id, selectedAddons: inp.selectedAddons, months: inp.months, rush: inp.rush }, $("#aiQuoteOutput"), quoteBtn);
+  });
+}
+
 /* ---------- 내비게이션 ---------- */
 function initNav() {
   const toggle = $("#navToggle");
@@ -336,6 +380,7 @@ function initNav() {
 /* ---------- 부트스트랩 ---------- */
 async function init() {
   initNav();
+  initAI();
   $("#diagnosticForm").addEventListener("submit", handleDiagnose);
   $("#clearRequests").addEventListener("click", () => {
     if (confirm("모든 의뢰를 삭제할까요?")) { saveRequests([]); renderRequests(); toast("의뢰 목록을 초기화했습니다."); }

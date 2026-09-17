@@ -32,6 +32,7 @@
         <a href="#portfolio">성장 사례</a>
         <a href="#diagnostic">채널 진단</a>
         <a href="#quote">견적</a>
+        <a href="#ai">AI 어시스턴트</a>
         <a href="#experts">전문가</a>
         <a href="#requests">내 의뢰</a>
         <a href="#reviews">후기</a>
@@ -162,6 +163,44 @@
             <button type="submit" class="btn btn-primary">상담 신청하기</button>
           </fieldset>
         </form>
+      </div>
+    </section>
+
+    <section class="section" id="ai" aria-labelledby="ai-h">
+      <div class="wrap">
+        <h2 id="ai-h">AI 어시스턴트</h2>
+        <p class="section-sub">앱의 채널 진단·패키지·견적 엔진을 재사용하는 AI 도우미입니다. 데모는 규칙 기반 목업으로 동작하며, 백엔드 프록시(<code>server/</code>) 연결 시 실제 Claude로 전환됩니다.</p>
+        <div class="grid cards ai-grid">
+          <article class="card ai-card">
+            <span class="tag">채널 성장 상담</span>
+            <h3>AI 채널 성장 상담 챗봇</h3>
+            <p class="meta-line">위 채널 진단 입력값을 사용해 맞춤 조언을 생성합니다.</p>
+            <label class="full">질문(선택)
+              <input type="text" id="aiChatInput" placeholder="예: 조회수를 어떻게 올리나요?" />
+            </label>
+            <button class="btn btn-primary" id="aiChatBtn" type="button">상담 받기</button>
+            <pre class="ai-output" id="aiChatOutput" aria-live="polite" hidden></pre>
+          </article>
+          <article class="card ai-card">
+            <span class="tag">콘텐츠 기획</span>
+            <h3>제목·썸네일 아이디어 생성</h3>
+            <label>주제
+              <input type="text" id="aiContentTopic" placeholder="예: 게임, 뷰티, IT" value="브이로그" />
+            </label>
+            <label>키워드(선택)
+              <input type="text" id="aiContentKeyword" placeholder="예: 캠핑, 카메라" />
+            </label>
+            <button class="btn btn-primary" id="aiContentBtn" type="button">아이디어 생성</button>
+            <pre class="ai-output" id="aiContentOutput" aria-live="polite" hidden></pre>
+          </article>
+          <article class="card ai-card">
+            <span class="tag">견적 설명</span>
+            <h3>견적·패키지 추천 설명</h3>
+            <p class="meta-line">아래 견적 폼의 현재 선택으로 설명을 생성합니다.</p>
+            <button class="btn btn-primary" id="aiQuoteBtn" type="button">견적 설명 생성</button>
+            <pre class="ai-output" id="aiQuoteOutput" aria-live="polite" hidden></pre>
+          </article>
+        </div>
       </div>
     </section>
 

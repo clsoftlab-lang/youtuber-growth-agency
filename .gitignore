@@ -15,3 +15,8 @@ Thumbs.db
 dist/
 .cache/
 *.tmp
+
+# Secrets — never commit real API keys
+.env
+*.env
+!.env.example

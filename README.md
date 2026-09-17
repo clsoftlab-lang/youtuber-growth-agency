@@ -62,6 +62,38 @@ The total (0–100) maps to a grade (A–E), tailored suggestions, and a recomme
 A term discount (3m 5%, 6m 10%, 12m+ 15%) is subtracted, then an optional rush surcharge
 (+30%) is applied on the discounted amount to reach the total.
 
+## 🤖 AI 기능 (API 연동)
+
+세 가지 AI 기능이 추가되었습니다 (모두 앱의 진단/견적 엔진과 패키지·전문가 데이터를 재사용):
+
+1. **AI 채널 성장 상담 챗봇** — 채널 진단 결과 기반 맞춤 조언.
+2. **콘텐츠 기획/제목·썸네일 아이디어 생성**.
+3. **견적/패키지 추천 설명**.
+
+**데모 = 목업(mock).** 기본값에서 `ai/config.js` 의 `AI_ENDPOINT` 가 비어 있으며,
+브라우저에서 결정적(deterministic) 한국어 MockProvider가 즉시 응답합니다. 별도 키·서버·네트워크가 필요 없습니다.
+
+**실제 AI 활성화.** 백엔드 프록시로 전환합니다.
+
+```bash
+cd server
+npm install                       # @anthropic-ai/sdk
+cp .env.example .env              # .env 에 ANTHROPIC_API_KEY 입력 (커밋 금지)
+node --env-file=.env index.mjs    # http://localhost:8787/api/ai
+```
+
+그런 다음 `ai/config.js` 를 수정합니다.
+
+```js
+export const AI_ENDPOINT = "http://localhost:8787/api/ai";
+```
+
+- 모델: **`claude-opus-5`** (adaptive thinking), 응답은 텍스트 스트리밍.
+- 서버는 `data/*.json` 카탈로그를 로드해 프롬프트에 grounding.
+- **BOLD: API 키는 서버 측에만 둡니다. 브라우저·프런트엔드 코드·리포지토리에는 절대 키를 넣지 않습니다.** `.env` 는 `.gitignore` 로 제외됩니다.
+
+자세한 내용: [`server/README.md`](./server/README.md). 검증: `node check.mjs` 가 `ai/`·`server/` 문법, `AI_ENDPOINT` 공백, 실제 키 형식 노출을 함께 점검합니다.
+
 ## DEMO-MODE boundaries
 **This is a demonstration build. Specifically:**
 - **All data is fictional** (channels, experts, reviews, prices) — no real people or brands.
@@ -71,7 +103,7 @@ A term discount (3m 5%, 6m 10%, 12m+ 15%) is subtracted, then an optional rush s
 - **No accounts, no login, no PII collection.**
 - A real production build would add: a backend, real YouTube Data API analytics, payments, and authentication.
 
-## 아이디어 출처 / Idea origin
+## 🎓 아이디어 출처 / Idea origin
 The seed idea came from the entrepreneurship class taught by Dr. Lee Il-guk at Yongin University
 (용인대학교). The students' startup ideas were exceptionally creative; this is one of the standout
 ideas from that class, finally brought to life as a working service — with admiration and gratitude
